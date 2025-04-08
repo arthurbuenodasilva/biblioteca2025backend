@@ -1,41 +1,29 @@
-//biblioteca para criar api
 import express from "express";
-import { Sequelize } from "sequelize";
+import banco from "./banco.js";
+import editora from "./controller/EditoraController.js"
+try {
+    await banco.authenticate();
+    console.log('Conexão com o banco de dados realizada com sucesso.');
+} catch (error) {
+    console.error('Erro ao conectar com o banco de dados:', error);
+}
 
 
-const sequelize = new Sequelize('postgres', 'postgres', '123456', {
-    host: 'localhost',
-   
-    dialect: 'postgres',
-    define:{
-        timestamps:false,
-        freezeTableName:true
-    }
-  });
-
-  try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
-
-
+//rotas crud da tabela editora
 const app = express();
+app.use (express.json());
 
-//diz que vamos parametros no body do tipo json 
-app.use(express.json());
 
-app.get('/teste', (request,response)=>{
-   
-    response.send('<h5 style = color:purple; > </h5> <button >😈 botao da maldade</button>');
-});
+app.get('/editora', editora.listar);
+
+app.get('/editora/:id',editora.selecionar );
 
 
 
-//porta e mensagem de inicio 
-app.listen(3000,()=>{console.log('Servidor rodando ...')});
+app.post('/editora',editora.inserir);
 
-// sequelize - npm install sequelize pg pg-hstore ( instalador do interpretador de sql);
+app.put('/editora/:id', editora.alterar);
 
+app.delete('/editora/:id',editora.excluir);
 
+app.listen(3000, () => { console.log(`Servidor rodando.`) });
