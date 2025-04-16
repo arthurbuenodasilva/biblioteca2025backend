@@ -1,4 +1,5 @@
-import { Sequelize,DataTypes } from "sequelize";
+import { Sequelize } from "sequelize";
+
 //configuração da conexão com o banco de dados
 const sequelize = new Sequelize('biblioteca2025', 'postgres', 'postgres', {
     host: 'localhost',
