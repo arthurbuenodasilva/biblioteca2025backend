@@ -49,6 +49,7 @@ app.post('/livro', livro.inserir);
 app.put('/livro/:id', livro.alterar);
 app.delete('/livro/:id', livro.excluir);
 
+
 //rotas crud da tabela usuario
 app.get('/usuario', usuario.listar);
 app.get('/usuario/:id', usuario.selecionar);
@@ -57,13 +58,10 @@ app.put('/usuario/:id', usuario.alterar);
 app.delete('/usuario/:id', usuario.excluir);
 
 //rotas crud da tabela emprestimo
-
-app.get('/emprestimo/', emprestimo.listar);
+app.get('/emprestimo', emprestimo.listar);
 app.get('/emprestimo/:id', emprestimo.selecionar);
-//fazer emprestimo
-app.post('/emprestar/', emprestimo.emprestar);
-//devolver
+app.post('/emprestar', emprestimo.emprestar);
 app.put('/devolver/:id', emprestimo.devolver);
-
+app.put('/devolverlivro/', emprestimo.devolverlivro);
 
 app.listen(3000, () => { console.log(`Servidor rodando.`) });
